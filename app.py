@@ -1,14 +1,34 @@
+from google import genai
+from google.genai import types
 import streamlit as st
-import google.generativeai as genai
 
 st.set_page_config(page_title="🧠 Gemini Prompt Lab", layout="centered")
 st.title("💬 Few-shot learning app - Prompt Playground")
 
 # Input API key
 api_key = st.text_input("🔑 Enter your Gemini API key", type="password")
-
+    
 if api_key:
-    genai.configure(api_key=api_key)
+    client = genai.Client(api_key=api_key)
+
+    safety_settings = [
+        types.SafetySetting(
+            category=types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold=types.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        ),
+        types.SafetySetting(
+            category=types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+            threshold=types.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        ),
+        types.SafetySetting(
+            category=types.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold=types.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        ),
+        types.SafetySetting(
+            category=types.HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold=types.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        ),
+    ]
 
     # Session state to store past interactions
     if "history" not in st.session_state:
@@ -29,21 +49,16 @@ if api_key:
     if st.button("🚀 Generate Response") and user_prompt.strip():
         with st.spinner("Generating..."):
             try:
-                model = genai.GenerativeModel("gemini-1.5-flash-latest")
-                response = model.generate_content(
-                    user_prompt,
-                    generation_config={
-                        "temperature": temperature,
-                        "top_p": top_p,
-                        "top_k": top_k,
-                        "max_output_tokens": max_tokens,
-                    },
-                    safety_settings=[
-                        {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": 4},
-                        {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": 4},
-                        {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": 4},
-                        {"category": "HARM_CATEGORY_HARASSMENT", "threshold": 4},
-                    ]
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=user_prompt,
+                    config=types.GenerateContentConfig(
+                        temperature=temperature,
+                        top_p=top_p,
+                        top_k=top_k,
+                        max_output_tokens=max_tokens,
+                        safety_settings=safety_settings,
+                    ),
                 )
                 answer = response.text.strip()
                 st.session_state.history.append((user_prompt, answer))  # save in history

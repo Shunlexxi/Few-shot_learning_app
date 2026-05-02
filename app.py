@@ -1,7 +1,9 @@
+# import dependencies
 from google import genai
 from google.genai import types
 import streamlit as st
 
+# Page configuration 
 st.set_page_config(page_title="🧠 Gemini Prompt Lab", layout="centered")
 st.title("💬 Few-shot learning app - Prompt Playground")
 

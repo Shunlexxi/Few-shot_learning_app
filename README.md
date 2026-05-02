@@ -1,6 +1,6 @@
-# 🤖 Few-Shot Learning App with Gemini 1.5 (Streamlit)
+# 🤖 Few-Shot Learning App with Gemini 2.5 (Streamlit)
 
-This is a lightweight interactive app built with **Streamlit** and **Google's Gemini 1.5 Flash** model. It allows you to type in prompts, experiment with model parameters like `temperature` and `top_p`, and instantly see the AI's response. Ideal for learning, prototyping, and exploring how large language models behave.
+This is a lightweight interactive app built with **Streamlit** and **Google's Gemini 2.5 Flash** model. It allows you to type in prompts, experiment with model parameters like `temperature` and `top_p`, and instantly see the AI's response. Ideal for learning, prototyping, and exploring how large language models behave.
 
 ---
 
@@ -14,7 +14,7 @@ This is a lightweight interactive app built with **Streamlit** and **Google's Ge
   - Top-k
   - Max output tokens
 - 📜 Prompt & response history (scrollable)
-- 🧪 Built on Gemini 1.5 Flash (`gemini-1.5-flash-latest`)
+- 🧪 Built on Gemini 2.5 Flash (`gemini-2.5-flash-latest`)
 - ⚡ Runs entirely on your local machine
 
 ---
@@ -49,7 +49,7 @@ venv\Scripts\activate         # Windows
 ### 3. Install Dependencies
 
 ```bash
-pip install streamlit google-generativeai
+pip install streamlit google-genai
 ```
 
 ### 4. Run the App
@@ -73,7 +73,7 @@ Then go to `http://localhost:8501` in your browser.
 
 ## 🧠 What Is Gemini?
 
-Gemini is Google DeepMind’s family of large language models. This app uses the **Gemini 1.5 Flash** version — optimized for fast, cost-effective inference. Great for chat, summarization, coding, and more.
+Gemini is Google DeepMind’s family of large language models. This app uses the **Gemini 2.5 Flash** version — optimized for fast, cost-effective inference. Great for chat, summarization, coding, and more.
 
 📚 [Learn more about Gemini](https://ai.google.dev/)
 
